@@ -7,6 +7,8 @@
 API desenvolvida como parte do desafio técnico da **JTech** para gerenciamento de tarefas (TODO List).
 Permite criar, listar, buscar, atualizar e excluir tarefas, com validação robusta, tratamento de erros padronizado e testes automatizados (unitários, de controller e de integração).
 
+O projeto inclui também um **frontend em Vue 3**, permitindo interagir com a API de forma dinâmica e responsiva.
+
 ---
 
 ## 🛠 Stack Utilizada
@@ -17,6 +19,7 @@ Permite criar, listar, buscar, atualizar e excluir tarefas, com validação robu
 * **Spring Data JPA + Hibernate**
 * **Banco de Dados**: PostgreSQL (produção) / H2 (testes)
 * **Bean Validation (Jakarta)**
+* **Frontend**: Vue 3, Vue Router, Vuelidate, Axios, Tailwind CSS
 * **Testes**: JUnit 5 + Mockito + TestRestTemplate (integração)
 * **Build Tool**: Maven
 * **Outros**: Lombok, Spring Boot DevTools
@@ -29,9 +32,10 @@ Permite criar, listar, buscar, atualizar e excluir tarefas, com validação robu
 
 * Java 21 instalado
 * Maven instalado
+* Node.js + npm ou Yarn
 * PostgreSQL rodando localmente ou via Docker
 
-### Passos
+### Backend
 
 1. **Clone o repositório**
 
@@ -70,15 +74,39 @@ Permite criar, listar, buscar, atualizar e excluir tarefas, com validação robu
    ./mvnw spring-boot:run
    ```
 
-5. **Acesse a API**
+### Frontend (Vue 3)
 
-   * Lista de tarefas: `GET http://localhost:8080/tasks`
+1. **Entre na pasta do frontend**
+
+   ```bash
+   cd ../jtech-tasklist-frontend
+   ```
+
+2. **Instale as dependências**
+
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
+
+3. **Execute a aplicação Vue**
+
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
+
+4. **Acesse o frontend**
+
+   * Disponível em: `http://localhost:5173` (Vite padrão)
 
 ---
 
 ## 🧪 Como Rodar os Testes
 
-### Testes Unitários e de Controller
+### Backend
 
 ```bash
 ./mvnw test
@@ -100,6 +128,10 @@ Eles estão localizados em:
 src/test/java/com/jtech/backend/TaskIntegrationTest.java
 ```
 
+### Frontend
+
+* Para testes de unidade ou componentes, usar Jest/Vitest conforme configuração do projeto Vue.
+
 ---
 
 ## 📂 Estrutura de Pastas
@@ -113,11 +145,12 @@ src/main/java/com/jtech/backend
  ├── dto                # Objetos de entrada/saída
  ├── exception          # Tratamento de erros
 
-
-src/test/java/com/jtech/backend
- ├── TaskControllerTest     # Testes de controller com MockMvc
- ├── TaskServiceTest        # Testes unitários com Mockito
- └── TaskIntegrationTest    # Testes de integração com H2
+jtech-tasklist-frontend/
+ ├── src/components     # Componentes Vue
+ ├── src/views          # Telas / páginas
+ ├── src/router         # Vue Router
+ ├── src/services       # Chamadas Axios para API
+ ├── src/styles         # CSS / Tailwind
 ```
 
 ---
@@ -130,6 +163,7 @@ src/test/java/com/jtech/backend
 * **GlobalExceptionHandler** garante respostas consistentes e claras em erros.
 * **Lombok** reduz boilerplate e melhora legibilidade.
 * **Testes de integração** garantem que o fluxo completo da API funciona de ponta a ponta.
+* **Frontend Vue 3 + Tailwind** para interface moderna, responsiva e modular.
 
 ---
 
