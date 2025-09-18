@@ -163,7 +163,7 @@ jtech-tasklist-frontend/
 * **GlobalExceptionHandler** garante respostas consistentes e claras em erros.
 * **Lombok** reduz boilerplate e melhora legibilidade.
 * **Testes de integração** garantem que o fluxo completo da API funciona de ponta a ponta.
-* **Frontend Vue 3 + Tailwind** para interface moderna, responsiva e modular.
+* **Frontend Vue 3 + CSS** para interface moderna, responsiva e modular.
 
 ---
 
