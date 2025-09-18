@@ -53,6 +53,8 @@
 import { ref, onMounted } from 'vue';
 import { getTasks, deleteTask, updateTask } from '../service/taskService';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import Header from '@/components/Header.vue';
 import '../styles/taskList.css';
 
@@ -77,26 +79,52 @@ const statusClass = (status) => {
 };
 
 const loadTasks = async () => {
-  const res = await getTasks();
-  tasks.value = res.data;
+  try {
+    const res = await getTasks();
+    tasks.value = res.data;
+  } catch (error) {
+    toast.error('Erro ao carregar a lista de tarefas.');
+    toast.error(error.response?.data?.message || 'Erro inesperado.');
+    console.error(error);
+  }
 };
+
 
 const remove = async (id) => {
   const tarefa = tasks.value.find(t => t.id === id);
   const confirmado = window.confirm(`Tem certeza que deseja excluir a tarefa "${tarefa?.title}"?`);
   if (!confirmado) return;
 
-  await deleteTask(id);
-  await loadTasks();
+  try {
+    await deleteTask(id);
+    await loadTasks();
+    toast.success(`Tarefa "${tarefa?.title}" excluída com sucesso.`);
+  } catch (error) {
+    toast.error(`Erro ao excluir a tarefa "${tarefa?.title}".`);
+    toast.error(error.response?.data?.message || 'Erro inesperado.');
+    console.error(error);
+  }
 };
 
-const getNextStatus = (status) => 
+
+const getNextStatus = (status) =>
   status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
 
 const toggleStatus = async (task) => {
-  await updateTask(task.id, { ...task, status: getNextStatus(task.status) });
-  await loadTasks();
+  const novoStatus = getNextStatus(task.status);
+  try {
+    await updateTask(task.id, { ...task, status: novoStatus });
+    await loadTasks();
+
+    const acao = novoStatus === 'COMPLETED' ? 'concluída' : 'pendente';
+    toast.success(`Tarefa "${task.title}" marcada como ${acao}.`);
+  } catch (error) {
+    toast.error(`Erro ao atualizar status da tarefa "${task.title}".`);
+    toast.error(error.response?.data?.message || 'Erro inesperado.');
+    console.error(error);
+  }
 };
+
 
 const edit = (id) => {
   router.push(`/edit/${id}`);

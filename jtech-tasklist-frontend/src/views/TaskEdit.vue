@@ -4,7 +4,6 @@
     <form @submit.prevent="submit" class="edit-task-form">
       <h1>✏️ Editar Tarefa</h1>
 
-      <!-- Título -->
       <div class="edit-task-group">
         <label for="title">Título</label>
         <input
@@ -17,7 +16,6 @@
         </span>
       </div>
 
-      <!-- Status -->
       <div class="edit-task-group">
         <label for="status">Status</label>
         <select id="status" v-model="status">
@@ -26,7 +24,6 @@
         </select>
       </div>
 
-      <!-- Descrição -->
       <div class="edit-task-group edit-task-full">
         <label for="description">Descrição</label>
         <textarea
@@ -36,7 +33,6 @@
         ></textarea>
       </div>
 
-      <!-- Ações -->
       <div class="edit-task-actions">
         <button type="submit" class="edit-task-save">
           💾 Salvar Alterações
@@ -55,6 +51,8 @@ import { useRoute, useRouter } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, helpers } from '@vuelidate/validators';
 import { getTaskById, updateTask } from '../service/taskService';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import Header from '@/components/Header.vue';
 import '../styles/taskEdit.css';
 
@@ -82,21 +80,34 @@ const rules = {
 const v$ = useVuelidate(rules, { title, description, status });
 
 onMounted(async () => {
-  const { data } = await getTaskById(route.params.id);
-  title.value = data.title;
-  description.value = data.description;
-  status.value = data.status;
+  try {
+    const { data } = await getTaskById(route.params.id);
+    title.value = data.title;
+    description.value = data.description;
+    status.value = data.status;
+  } catch (error) {
+    toast.error('Erro ao carregar os dados da tarefa.');
+    console.error(error);
+  }
 });
 
 const submit = async () => {
   v$.value.$touch();
   if (!v$.value.$invalid) {
-    await updateTask(route.params.id, {
-      title: title.value,
-      description: description.value,
-      status: status.value
-    });
-    router.push('/tasks');
+    try {
+      await updateTask(route.params.id, {
+        title: title.value,
+        description: description.value,
+        status: status.value
+      });
+      toast.success(`Tarefa "${title.value}" atualizada com sucesso!`);
+      router.push('/tasks');
+    } catch (error) {
+      const msg = error.response?.data?.message || 'Erro ao atualizar a tarefa.';
+      toast.error(msg);
+      console.error(error);
+    }
   }
 };
 </script>
+

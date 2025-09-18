@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header />
   <div class="create-task-page">
     <form class="create-task-form" @submit.prevent="submit">
       <h1>➕ Nova Tarefa</h1>
@@ -34,8 +34,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core';
-import { required, minLength } from '@vuelidate/validators';
+import { required, minLength, helpers } from '@vuelidate/validators';
 import { createTask } from '../service/taskService';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import Header from '@/components/Header.vue';
 import '../styles/taskForm.css';
 
@@ -45,9 +47,14 @@ const status = ref('PENDING');
 const router = useRouter();
 
 const rules = {
-  title: { required, minLength: minLength(3) },
+  title: {
+    required: helpers.withMessage('O título é obrigatório', required),
+    minLength: helpers.withMessage('O título deve ter pelo menos 3 caracteres', minLength(3))
+  },
   description: {},
-  status: { required }
+  status: {
+    required: helpers.withMessage('O status é obrigatório', required)
+  }
 };
 
 const v$ = useVuelidate(rules, { title, description, status });
@@ -55,12 +62,21 @@ const v$ = useVuelidate(rules, { title, description, status });
 const submit = async () => {
   v$.value.$touch();
   if (!v$.value.$invalid) {
-    await createTask({
-      title: title.value,
-      description: description.value,
-      status: status.value
-    });
-    router.push('/tasks');
+    try {
+      await createTask({
+        title: title.value,
+        description: description.value,
+        status: status.value
+      });
+      toast.success(`Tarefa "${title.value}" criada com sucesso!`);
+      router.push('/tasks');
+    } catch (error) {
+      const msg = error.response?.data?.message || 'Erro ao criar a tarefa.';
+      toast.error(msg);
+      console.error(error);
+    }
   }
 };
 </script>
+
+
