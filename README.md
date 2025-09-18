@@ -128,10 +128,6 @@ Eles estão localizados em:
 src/test/java/com/jtech/backend/TaskIntegrationTest.java
 ```
 
-### Frontend
-
-* Para testes de unidade ou componentes, usar Jest/Vitest conforme configuração do projeto Vue.
-
 ---
 
 ## 📂 Estrutura de Pastas
