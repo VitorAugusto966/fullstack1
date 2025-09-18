@@ -50,7 +50,7 @@ O projeto inclui também um **frontend em Vue 3**, permitindo interagir com a AP
    CREATE DATABASE jtech_task;
    ```
 
-3. **Configure o application.yml**
+3. **Configure o application.properties**
 
    ```yaml
    spring:
