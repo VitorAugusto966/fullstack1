@@ -36,7 +36,7 @@ Permite criar, listar, buscar, atualizar e excluir tarefas, com validação robu
 1. **Clone o repositório**
 
    ```bash
-   git clone https://github.com/seu-usuario/fullstack1.git
+   git clone https://github.com/VitorAugusto966/fullstack1.git
    cd fullstack1/backend
    ```
 
