@@ -1,0 +1,151 @@
+.create-task-page {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #eef2ff, #e0f7fa);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.create-task-page h1 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  grid-column: span 2;
+}
+
+.create-task-form {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease;
+}
+
+.create-task-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.create-task-full {
+  grid-column: span 2;
+}
+
+.create-task-group label {
+  font-weight: 600;
+  color: #444;
+}
+
+.create-task-group input,
+.create-task-group textarea,
+.create-task-group select {
+  padding: 0.9rem 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fafafa;
+}
+
+.create-task-group input:focus,
+.create-task-group textarea:focus,
+.create-task-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  outline: none;
+  background: #fff;
+}
+
+.create-task-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.create-task-error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.create-task-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.create-task-btn {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  padding: 0.9rem 1.6rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.create-task-btn:hover {
+  background: linear-gradient(90deg, #1e40af, #2563eb);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.create-task-btn:active {
+  transform: scale(0.97);
+}
+
+.create-task-cancel {
+  background-color: #6c757d;
+  color: white;
+  padding: 0.9rem 1.6rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.create-task-cancel:hover {
+  background-color: #5a6268;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 800px) {
+  .create-task-form {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+  }
+
+  .create-task-actions {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .create-task-btn,
+  .create-task-cancel {
+    width: 100%;
+    text-align: center;
+  }
+}

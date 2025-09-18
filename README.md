@@ -1,62 +1,144 @@
-# Desafio Técnico Fullstack 1 - JTech
+# 📋 Desafio Técnico Fullstack 1 - JTech
 
 ## API RESTful para Gerenciamento de Tarefas
 
-### Contextualização e Objetivo
+### 📌 Visão Geral do Projeto
 
-A **JTech** busca identificar profissionais que demonstrem sólido conhecimento nos fundamentos do desenvolvimento backend. Este desafio técnico foi elaborado para avaliar suas competências na construção de APIs RESTful utilizando Java e Spring Boot.
-
-**Objetivo:** Desenvolver uma API completa para gerenciamento de tarefas (TODO List), aplicando boas práticas de desenvolvimento, arquitetura limpa e documentação técnica de qualidade.
-
-## Especificações Técnicas
-
-### Requisitos Funcionais
-
-1. **Criar Tarefa**: Endpoint `POST /tasks` para adicionar uma nova tarefa. A tarefa deve conter título, descrição e status (ex: "pendente", "concluída").
-2. **Listar Tarefas**: Endpoint `GET /tasks` para retornar todas as tarefas cadastradas.
-3. **Buscar Tarefa por ID**: Endpoint `GET /tasks/{id}` para obter os detalhes de uma tarefa específica.
-4. **Atualizar Tarefa**: Endpoint `PUT /tasks/{id}` para atualizar o título, a descrição ou o status de uma tarefa.
-5. **Deletar Tarefa**: Endpoint `DELETE /tasks/{id}` para remover uma tarefa do sistema.
-
-### Requisitos Não Funcionais
-
-1. **Persistência de Dados**: As tarefas devem ser armazenadas em banco de dados. Recomenda-se H2 (em memória) para simplificação ou PostgreSQL para demonstrar conhecimento em bancos relacionais.
-2. **Validação de Dados**: Implementar validação robusta das entradas do usuário (ex: título da tarefa obrigatório e não vazio).
-3. **Tratamento de Erros**: A API deve retornar códigos de status HTTP apropriados e mensagens de erro claras (ex: 404 para tarefa não encontrada, 400 para dados inválidos).
-
-### Stack Tecnológica Obrigatória
-
-* **Linguagem**: Java
-* **Framework**: Spring Boot
-* **Persistência**: Spring Data JPA com Hibernate
-* **Banco de Dados**: H2 (em memória) ou PostgreSQL
-* **Testes**: Testes unitários com JUnit/Mockito.
-
-## Critérios de Avaliação
-
-* **Qualidade e Organização do Código**: Código limpo, legível e seguindo as convenções do Java.
-* **Aplicação de Boas Práticas**: Utilização de princípios como Clean Code e KISS.
-* **Funcionalidade**: Todos os endpoints devem funcionar conforme especificado.
-* **Testes Automatizados**: Cobertura de testes unitários para as classes de serviço e controllers.
-* **Uso Adequado da Stack**: Configuração correta do Spring Boot, JPA e do banco de dados.
-* **Modelagem de Dados**: Estrutura da entidade `Task` bem definida.
-* **Controle de Versão**: Commits claros e lógicos no Git.
-
-## Expectativa de Entrega
-
-* **Prazo**: Até 3 dias corridos a partir do recebimento.
-* **Formato**: Entregar o código-fonte em um repositório Git, acompanhado de um `README.md` completo.
-
-### Estrutura Obrigatória do `README.md`
-
-1. **Visão Geral do Projeto**: Breve descrição da API e seus objetivos.
-2. **Stack Utilizada**: Lista das tecnologias implementadas.
-3. **Como Rodar Localmente**: Instruções para configurar o ambiente, instalar dependências e iniciar o servidor.
-4. **Como Rodar os Testes**: Comando para executar os testes.
-5. **Estrutura de Pastas**: Explicação da organização do projeto.
-6. **Decisões Técnicas**: Justificativas para as escolhas feitas (ex: por que usou H2 em vez de PostgreSQL).
-7. **Melhorias Futuras**: Sugestões para evoluir a API.
+API desenvolvida como parte do desafio técnico da **JTech** para gerenciamento de tarefas (TODO List).
+Permite criar, listar, buscar, atualizar e excluir tarefas, com validação robusta, tratamento de erros padronizado e testes automatizados (unitários, de controller e de integração).
 
 ---
 
-**Boa sorte! A JTech está ansiosa para conhecer sua solução.**
+## 🛠 Stack Utilizada
+
+* **Java 21**
+* **Spring Boot 3**
+* **Spring Web**
+* **Spring Data JPA + Hibernate**
+* **Banco de Dados**: PostgreSQL (produção) / H2 (testes)
+* **Bean Validation (Jakarta)**
+* **Testes**: JUnit 5 + Mockito + TestRestTemplate (integração)
+* **Build Tool**: Maven
+* **Outros**: Lombok, Spring Boot DevTools
+
+---
+
+## 🚀 Como Rodar Localmente
+
+### Pré-requisitos
+
+* Java 21 instalado
+* Maven instalado
+* PostgreSQL rodando localmente ou via Docker
+
+### Passos
+
+1. **Clone o repositório**
+
+   ```bash
+   git clone https://github.com/seu-usuario/fullstack1.git
+   cd fullstack1/backend
+   ```
+
+2. **Configure o banco de dados PostgreSQL**
+
+   ```sql
+   CREATE DATABASE jtech_task;
+   ```
+
+3. **Configure o application.yml**
+
+   ```yaml
+   spring:
+     datasource:
+       url: jdbc:postgresql://localhost:5432/jtech_task
+       username: postgres
+       password: sua_senha
+       driver-class-name: org.postgresql.Driver
+     jpa:
+       hibernate:
+         ddl-auto: update
+       properties:
+         hibernate:
+           dialect: org.hibernate.dialect.PostgreSQLDialect
+       open-in-view: false
+   ```
+
+4. **Execute a aplicação**
+
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+5. **Acesse a API**
+
+   * Lista de tarefas: `GET http://localhost:8080/tasks`
+
+---
+
+## 🧪 Como Rodar os Testes
+
+### Testes Unitários e de Controller
+
+```bash
+./mvnw test
+```
+
+### Testes de Integração com H2
+
+Os testes de integração sobem o contexto completo do Spring Boot e validam o fluxo real da API contra um banco H2 em memória:
+
+* Criação de tarefa
+* Listagem
+* Busca por ID
+* Atualização
+* Exclusão
+
+Eles estão localizados em:
+
+```
+src/test/java/com/jtech/backend/TaskIntegrationTest.java
+```
+
+---
+
+## 📂 Estrutura de Pastas
+
+```
+src/main/java/com/jtech/backend
+ ├── controller         # Endpoints REST
+ ├── service            # Regras de negócio
+ ├── repository         # Interface JPA
+ ├── model              # Entidade e Enum
+ ├── dto                # Objetos de entrada/saída
+ ├── exception          # Tratamento de erros
+
+
+src/test/java/com/jtech/backend
+ ├── TaskControllerTest     # Testes de controller com MockMvc
+ ├── TaskServiceTest        # Testes unitários com Mockito
+ └── TaskIntegrationTest    # Testes de integração com H2
+```
+
+---
+
+## 🧠 Decisões Técnicas
+
+* **PostgreSQL** para persistência em produção; **H2** para testes rápidos e integração.
+* **DTOs** para desacoplar a entidade do modelo de entrada/saída.
+* **Service layer** centraliza regras e transações, mantendo o controller fino.
+* **GlobalExceptionHandler** garante respostas consistentes e claras em erros.
+* **Lombok** reduz boilerplate e melhora legibilidade.
+* **Testes de integração** garantem que o fluxo completo da API funciona de ponta a ponta.
+
+---
+
+## 🔮 Melhorias Futuras
+
+* **Autenticação & Autorização**: implementar segurança com **Spring Security + JWT**, permitindo que cada usuário tenha suas próprias tarefas.
+* **Paginação e Filtros Avançados**: suporte a **paginação, ordenação e filtros por status, data de criação e título**.
+* **Soft Delete & Auditoria**: manter histórico de exclusões (soft delete) e registrar datas de criação/atualização com auditoria automática.
+* **Documentação com Swagger / OpenAPI**: expor uma interface interativa para explorar os endpoints e facilitar integração com clientes externos.
+* **Testes End-to-End (E2E)**: criar testes com **Testcontainers** (PostgreSQL em Docker) para garantir comportamento em ambiente próximo ao real.
+* **CI/CD Automatizado**: configurar pipeline de integração contínua (ex.: GitHub Actions) rodando build, testes e análise de qualidade a cada push.
+* **Deploy em Nuvem**: preparar a aplicação para ser deployada em **Heroku, AWS, Azure ou Render**, com banco em nuvem (RDS, Neon, Supabase).

@@ -1,0 +1,151 @@
+.tasklist-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.tasklist-title {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+
+.tasklist-subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.tasklist-table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.tasklist-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tasklist-table th,
+.tasklist-table td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tasklist-table th {
+  background: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tasklist-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.tasklist-table tr:hover {
+  background: #eef2ff;
+  transition: background 0.3s ease;
+}
+
+.tasklist-title-cell {
+  font-weight: 600;
+  color: #111827;
+}
+
+.tasklist-status {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tasklist-status-pending {
+  background-color: #fff7ed;
+  color: #d97706;
+  border: 1px solid #fbbf24;
+}
+
+.tasklist-status-completed {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #34d399;
+}
+
+.tasklist-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.tasklist-edit-btn,
+.tasklist-delete-btn,
+.tasklist-complete-btn,
+.tasklist-reopen-btn {
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tasklist-edit-btn {
+  background-color: #2563eb;
+  color: #fff;
+}
+.tasklist-edit-btn:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.05);
+}
+
+.tasklist-delete-btn {
+  background-color: #ef4444;
+  color: #fff;
+}
+.tasklist-delete-btn:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+
+.tasklist-complete-btn {
+  background-color: #16a34a;
+  color: #fff;
+}
+.tasklist-complete-btn:hover {
+  background-color: #15803d;
+  transform: scale(1.05);
+}
+
+.tasklist-reopen-btn {
+  background-color: #f59e0b;
+  color: #fff;
+}
+.tasklist-reopen-btn:hover {
+  background-color: #d97706;
+  transform: scale(1.05);
+}
+
+.tasklist-empty {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
